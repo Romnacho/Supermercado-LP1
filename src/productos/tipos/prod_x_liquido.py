@@ -1,4 +1,4 @@
-from producto import Producto
+from productos.producto import Producto
 
 class Prod_x_liquido(Producto):
     def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, cm3):
@@ -10,7 +10,7 @@ class Prod_x_liquido(Producto):
         return precio_final
     
     def actualizarStock(self, stock_nuevo) -> None:
-        self.getstock() += stock_nuevo
+        self.stock += stock_nuevo
         return None
     
     def __str__():

@@ -9,4 +9,6 @@ sonrisas = Galletitas("Sonrisas", 3000, 10, "123456789", 5, "Bagley", 12, "Sonri
 pitusas_frutilla = Galletitas("Pitusas de frutilla", 2000, 15, "987654321", 5, "ParNor", 6, "Frutilla", 200, True)
 oreos = Galletitas("Oreos", 2500, 20, "111222333", 5, "Nabisco", 8, "Chocolate", 220, True)
 
-gondola_galletitas = Gondola(1, "galletitas", [sonrisas, pitusas_frutilla, oreos],)
+gondola_galletitas = Gondola(1, "galletitas", [sonrisas, pitusas_frutilla, oreos], [], None)
+
+gondola_galletitas.__str__()

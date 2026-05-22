@@ -1,4 +1,4 @@
-from producto import Producto
+from productos.producto import Producto
 
 class Prod_x_unidad(Producto):
     def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, unid_x_paquete):

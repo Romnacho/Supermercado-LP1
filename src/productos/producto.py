@@ -2,13 +2,13 @@ class Producto:
     def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca):
         self._nombre = nombre
         self.__precio = precio
-        self.__stock = stock
+        self.stock = stock
         self.__codigoBarras = codigoBarras
         self.__umbralMinimo = umbralMinimo 
         self.__marca = marca
         pass
 
-    @abs
+""" @abs
     def precioFinal():
         #abc para cada hija
         pass
@@ -28,4 +28,4 @@ class Producto:
     @abs
     def __str__():
         #muestra en la tablet
-        return None
+        return None"""
