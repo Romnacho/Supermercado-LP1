@@ -1,6 +1,6 @@
 from src.hardware.tablet import Tablet
 from src.hardware.sensor import Sensor
-from src.productos import Producto
+from src.productos import *
 from typing import List
 
 class Gondola:
