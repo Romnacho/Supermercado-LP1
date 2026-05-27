@@ -1,6 +1,8 @@
 class Pedido:
-    def __init__(self, idPedido: int, marca: str, nombreProducto: str, cantSolicitada: float):
-        self.__idPedido = idPedido
+    __contador = 0 #para id
+    def __init__(self, marca: str, nombreProducto: str, cantSolicitada: float):
+        Pedido.__contador += 1
+        self.__idPedido = Pedido.__contador
         self.__marca = marca
         self.__nombreProducto = nombreProducto
         self.__cantSolicitada = cantSolicitada
