@@ -11,6 +11,10 @@ class Proveedor:
     def agregarMarca(self, marca: str) -> None:
         self.__marcasQueProvee.append(marca)
 
+    def sacarMarca(self, marca: str) -> None:
+        if marca in self.__marcasQueProvee:
+            self.__marcasQueProvee.remove(marca)
+
     def recibirPedido(self, pedido: Pedido) -> None:
         self.__pedidosPendientes.append(pedido)
 
