@@ -9,14 +9,17 @@ class Inventario:
 
     def monitorearStock(self, producto: Producto) -> None:
         if producto.getStock() < producto.getUmbralMinimo():
+            print("Stock bajo, checkeando deposito")
             if self.__stockReserva.disponibilidad(producto.getCodigoBarras()) > 0:
                 self.realizarReposicionInterna(producto)
             else:
-                self.solicitarPedido(producto)
+                return self.solicitarPedido(producto)
         if self.__stockReserva.disponibilidad(producto.getCodigoBarras()) < self.__umbralMinimoGlobal: #chequea si el deposito global esta bajo
-            self.solicitarPedido(producto)
-
+            return self.solicitarPedido(producto)
+        return None
+    
     def realizarReposicionInterna(self, producto: Producto) -> None:
+        print("Reponiendo desde deposito")
         cantidad_necesaria = producto.getStockMaximo() - producto.getStock()
         disponible = self.__stockReserva.disponibilidad(producto.getCodigoBarras())
         cantidad_a_reponer = min(cantidad_necesaria, disponible)
@@ -24,6 +27,7 @@ class Inventario:
         producto.actualizarStock(-cantidad_a_reponer)  #suma al stock del producto
 
     def solicitarPedido(self, producto: Producto) -> Pedido:
+        print("Solicitando pedido del producto a Proveedor")
         pedido = Pedido(
             marca=producto.getMarca(),
             nombreProducto=producto.getNombre(),
@@ -32,6 +36,7 @@ class Inventario:
         return pedido
 
     def recibirPedido(self, pedido: Pedido) -> None:
+        print("Pedido recibido, acutalizando stock")
         pedido.recibirPedido()
         self.__stockReserva.agregarStock(pedido.getNombreProducto(), pedido.getCantSolicitada())
 

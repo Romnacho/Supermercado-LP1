@@ -16,9 +16,11 @@ class Proveedor:
             self.__marcasQueProvee.remove(marca)
 
     def recibirPedido(self, pedido: Pedido) -> None:
+        print("Pedido recibido")
         self.__pedidosPendientes.append(pedido)
 
     def despacharMercaderia(self) -> None:
+        print("Mercaderia despachada")
         for pedido in self.__pedidosPendientes:
             print(f"Despachando {pedido}")
         self.__pedidosPendientes = []

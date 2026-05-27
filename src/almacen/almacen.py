@@ -20,9 +20,10 @@ class Almacen:
         if producto:
             precio_final = self.calcularPrecioFinal(producto, cantidad)
             carrito.escanearYAgregar(producto, precio_final)
-            self.gestionarReposicion(producto)
+            return self.gestionarReposicion(producto)
         else:
             print(f"Producto con codigo {codigo} no encontrado")
+        return None
 
     def calcularPrecioFinal(self, producto: Producto, cantidad: int) -> float:
         gondola = self.__buscarGondola(producto)
@@ -34,12 +35,15 @@ class Almacen:
         return producto.precioFinal(cantidad)
 
     def gestionarReposicion(self, producto: Producto) -> None:
+        print(f"\nCheckeando stock del producto")
         if producto.getStock() < producto.getUmbralMinimo():
             cantidad_necesaria = producto.getStockMaximo() - producto.getStock()
             disponible = self.__inventario.getDisponibilidad(producto.getCodigoBarras())
             cantidad_a_reponer = min(cantidad_necesaria, disponible)
             producto.actualizarStock(-cantidad_a_reponer)
-            self.__inventario.monitorearStock(producto)
+            return self.__inventario.monitorearStock(producto)
+        print("Tamo bien de stock\n")
+        return None
 
     def __buscarGondola(self, producto: Producto) -> Gondola:
         for gondola in self.__listaGondolas:

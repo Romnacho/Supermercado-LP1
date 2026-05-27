@@ -16,12 +16,13 @@ from src.almacen.inventario import Inventario
 from src.almacen.almacen import Almacen
 from src.carrito.carrito import Carrito
 from src.cliente.cliente import Cliente
+from src.pedidos.proveedor import Proveedor
 from src.hardware.lectordecodigo import LectorDeCodigoDeBarras
 from src.hardware.pantallaOLED import PantallaOLED
 from src.promos.promos import Promocion
 
 # BEBIDAS
-coca = Bebidas(nombre="Coca Cola", precio=800, stock=15, stockMax=20, codigoBarras=1001, umbralMinimo=5, marca="Coca Cola", unid_x_paquete=1, cm3=500, sabor="cola", porcentajeAlcohol=0)
+coca = Bebidas(nombre="Coca Cola", precio=800, stock=2, stockMax=20, codigoBarras=1001, umbralMinimo=5, marca="Coca Cola", unid_x_paquete=1, cm3=500, sabor="cola", porcentajeAlcohol=0)
 heineken = Bebidas(nombre="Heineken", precio=600, stock=20, stockMax=30, codigoBarras=1002, umbralMinimo=5, marca="Heineken", unid_x_paquete=1, cm3=330, sabor="malta", porcentajeAlcohol=5)
 jugo = Bebidas(nombre="Cepita Naranja", precio=400, stock=10, stockMax=15, codigoBarras=1003, umbralMinimo=3, marca="Cepita", unid_x_paquete=1, cm3=200, sabor="naranja", porcentajeAlcohol=0)
 
@@ -135,13 +136,21 @@ carrito = Carrito(lectorBarra=lector, pantalla=pantalla)
 # CLIENTE
 cliente = Cliente(idCliente=1, nombre="Carlitos", carrito=carrito)
 
+# PROVEEDOR
+proveedor = Proveedor(nombreEmpresa="Coca Cola SA", cuit=123456789, mail="pedidos@coca.com", marcasQueProvee=["Coca Cola"])
+
+
 # SIMULACION DE COMPRA
 print("=== INICIO DE COMPRA ===\n")
 
 # BEBIDAS
 print("--- Sector Bebidas ---")
-codigo = lector.leerCodigo(1001)  # coca cola
-almacen.procesarEscaneo(codigo, carrito, cantidad=1)
+codigo = lector.leerCodigo(1001)
+pedido = almacen.procesarEscaneo(codigo, carrito, cantidad=1)
+if pedido:
+    proveedor.recibirPedido(pedido)
+    proveedor.despacharMercaderia()
+    inventario.recibirPedido(pedido)
 
 # CARNICERIA
 print("--- Sector Carniceria ---")
