@@ -5,6 +5,3 @@ class LectorDeCodigoDeBarras :
 
     def leerCodigo(self, codigo):
         return codigo
-
-    def enviarAlCarrito(self, carrito, codigo):
-        carrito.escanearYAgregar(codigo)

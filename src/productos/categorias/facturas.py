@@ -1,9 +1,8 @@
 from src.productos.tipos.prod_x_unidad import Prod_x_unidad
 
 class Factura(Prod_x_unidad):
-
-    def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, unid_x_paquete, tipo : str):
-        super().__init__(nombre, precio, stock, codigoBarras, umbralMinimo, marca, unid_x_paquete)
+    def __init__(self, nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca, unid_x_paquete, tipo):
+        super().__init__(nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca, unid_x_paquete)
         self.__tipo = tipo
 
     def __str__(self):

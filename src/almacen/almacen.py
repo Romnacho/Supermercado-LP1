@@ -31,7 +31,7 @@ class Almacen:
             promo = next((p for p in self.__promos if p.getTipo() == tipo_promo), None)
             if promo:
                 return promo.aplicarPromo(cantidad, producto)
-        return producto.precioFinal() * cantidad
+        return producto.precioFinal(cantidad)
 
     def gestionarReposicion(self, producto: Producto) -> None:
         if producto.getStock() < producto.getUmbralMinimo():

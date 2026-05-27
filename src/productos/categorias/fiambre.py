@@ -1,9 +1,8 @@
 from src.productos.tipos.prod_x_peso import Prod_x_peso
 
 class Fiambre(Prod_x_peso):
-
-    def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, peso, tipo_fiambre : str):
-        super().__init__(nombre, precio, stock, codigoBarras, umbralMinimo, marca, peso)
+    def __init__(self, nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca, tipo_fiambre):
+        super().__init__(nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca)
         self.__tipo_fiambre = tipo_fiambre
 
     def __str__(self):

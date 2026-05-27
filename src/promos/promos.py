@@ -15,7 +15,7 @@ class Promocion:
             return producto.getPrecio() * cantidad_comprada
         elif self.__tipo == 2:  #descuento por porcentaje
             return producto.getPrecio() * cantidad_comprada * (1 - self.__porcentaje_descuento / 100)
-        elif self.__tipo == 3:  # segunda unidad con descuento
+        elif self.__tipo == 3:  #segunda unidad con descuento
             if cantidad_comprada >= 2:
                 precio_primera = producto.getPrecio()
                 precio_segunda = producto.getPrecio() * (1 - self.__porcentaje_descuento / 100)

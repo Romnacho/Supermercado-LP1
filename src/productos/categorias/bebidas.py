@@ -1,8 +1,8 @@
 from src.productos.tipos.prod_x_unidad import Prod_x_unidad
 
 class Bebidas(Prod_x_unidad):
-    def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, cm3, sabor : str, porcentajeAlcohol : float):
-        super().__init__(nombre, precio, stock, codigoBarras, umbralMinimo, marca, cm3)
+    def __init__(self, nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca, unid_x_paquete, cm3, sabor, porcentajeAlcohol):
+        super().__init__(nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca, unid_x_paquete)
         self.__cm3 = cm3
         self.__sabor = sabor
         self.__porcentajeAlcohol = porcentajeAlcohol

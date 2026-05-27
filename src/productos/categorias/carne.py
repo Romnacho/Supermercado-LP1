@@ -1,9 +1,8 @@
 from src.productos.tipos.prod_x_peso import Prod_x_peso
 
 class Carne(Prod_x_peso):
-
-    def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, peso, tipo_corte : str, categoria : str):
-        super().__init__(nombre, precio, stock, codigoBarras, umbralMinimo, marca, peso)
+    def __init__(self, nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca, tipo_corte, categoria):
+        super().__init__(nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca)
         self.__tipo_corte = tipo_corte
         self.__categoria = categoria
 
