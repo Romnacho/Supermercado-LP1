@@ -29,6 +29,12 @@ class Gondola():
             self.__tablet.mostrarPromos(self.__promo)
         else:
             print("Esta góndola no tiene promociones")
+
+    def getPromo(self):
+        return self.__promo
+    
+    def tieneProducto(self, producto: Producto) -> bool:
+        return producto in self.__productos and any(sensor.detectarStock() for sensor in self.__sensores)
     
     def __str__(self):
         texto = f"Gondola {self.__idGondola} - Tipo: {self.__tipo}\nProductos:\n"

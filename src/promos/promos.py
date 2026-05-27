@@ -22,6 +22,9 @@ class Promocion:
                 return precio_primera + precio_segunda + producto.getPrecio() * (cantidad_comprada - 2)
             return producto.getPrecio() * cantidad_comprada
         
+    def getTipo(self) -> int:
+        return self.__tipo
+
     def __str__(self) -> str:
         if self.__tipo == 1:
             return f"Llevá {self.__cantidad_necesaria} pagá {self.__cantidad_necesaria - self.__productos_descontados}"

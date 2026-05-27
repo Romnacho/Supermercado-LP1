@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
 
 class Producto(ABC):
-    def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca):
+    def __init__(self, nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca):
         self._nombre = nombre
         self.__precio = precio
         self.__stock = stock
+        self.__stockMax = stockMax
         self.__codigoBarras = codigoBarras
         self.__umbralMinimo = umbralMinimo 
         self.__marca = marca
@@ -33,6 +34,9 @@ class Producto(ABC):
 
     def getStock(self):
         return self.__stock
+    
+    def getStockMaximo(self):
+        return self.__stockMax
     
     def setStock(self, nuevo_stock):
         self.__stock = nuevo_stock

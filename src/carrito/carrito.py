@@ -9,9 +9,9 @@ class Carrito:
         self.__pantalla = pantalla
         self.__totalAcumulado = 0.0
 
-    def escanearYAgregar(self, producto: Producto) -> None:
+    def escanearYAgregar(self, producto: Producto, precio: float) -> None:
         self.__listaProductos.append(producto)
-        self.__totalAcumulado += producto.precioFinal()
+        self.__totalAcumulado += precio
         self.__pantalla.mostrarTotal(self.__totalAcumulado)
 
     def eliminarProducto(self, producto: Producto) -> None:
