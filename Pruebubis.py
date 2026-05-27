@@ -12,3 +12,4 @@ oreos = Galletita("Oreos", 2500, 20, "111222333", 5, "Nabisco", 8, "Chocolate", 
 gondola_galletitas = Gondola(1, "galletitas", [sonrisas, pitusas_frutilla, oreos], [], None)
 
 gondola_galletitas.__str__()
+

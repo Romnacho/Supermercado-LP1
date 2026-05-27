@@ -21,3 +21,11 @@ class Promocion:
                 precio_segunda = producto.getPrecio() * (1 - self.__porcentaje_descuento / 100)
                 return precio_primera + precio_segunda + producto.getPrecio() * (cantidad_comprada - 2)
             return producto.getPrecio() * cantidad_comprada
+        
+    def __str__(self) -> str:
+        if self.__tipo == 1:
+            return f"Llevá {self.__cantidad_necesaria} pagá {self.__cantidad_necesaria - self.__productos_descontados}"
+        elif self.__tipo == 2:
+            return f"{self.__porcentaje_descuento}% de descuento"
+        elif self.__tipo == 3:
+            return f"Segunda unidad {self.__porcentaje_descuento}% off"
