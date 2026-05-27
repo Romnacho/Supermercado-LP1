@@ -1,16 +1,16 @@
-from tipos import prod_x_liquido
+from src.productos.tipos.prod_x_unidad import Prod_x_unidad
 
-class Perfumeria(prod_x_liquido):
-
-    def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, cm3, fragancia : str, importado : bool):
-        super().__init__(nombre, precio, stock, codigoBarras, umbralMinimo, marca,cm3)
+class Perfumeria(Prod_x_unidad):
+    def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, unid_x_paquete, cm3, fragancia : str, importado : bool):
+        super().__init__(nombre, precio, stock, codigoBarras, umbralMinimo, marca, unid_x_paquete)
+        self.__cm3 = cm3
         self.__fragancia = fragancia
         self.__importado = importado
 
     def __str__(self):
-        texto_producto = f"""Producto: {self.getnombre()} - Marca: {self.getmarca()}
+        texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Fragancia: {self.__fragancia} - Importado: {'Si' if self.__importado else 'No'}
-        Cm3: {self.getcm3()} - Precio: ${self.getprecio()}
-        Codigo de barras: {self.getcodigoBarras()} - Unidades disponibles: {self.getstock()}"""
+        Cm3: {self.__cm3} - Precio: ${self.getPrecio()}
+        Codigo de barras: {self.getCodigoBarras()} - Unidades disponibles: {self.getStock()}"""
         return texto_producto
     

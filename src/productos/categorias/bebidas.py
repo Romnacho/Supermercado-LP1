@@ -1,14 +1,15 @@
-from tipos import prod_x_liquido
+from src.productos.tipos.prod_x_unidad import Prod_x_unidad
 
-class Bebidas(prod_x_liquido):
+class Bebidas(Prod_x_unidad):
     def __init__(self, nombre, precio, stock, codigoBarras, umbralMinimo, marca, cm3, sabor : str, porcentajeAlcohol : float):
         super().__init__(nombre, precio, stock, codigoBarras, umbralMinimo, marca, cm3)
+        self.__cm3 = cm3
         self.__sabor = sabor
         self.__porcentajeAlcohol = porcentajeAlcohol
 
     def __str__(self):
-        texto_producto = f"""Producto: {self.getnombre()} - Marca: {self.getmarca()}
-        Sabor: {self.__sabor} - Porcentaje de alcohjol: {self.__porcentajeAlcohol}%
-        Cm3: {self.getcm3()} - Precio: ${self.getprecio()}
-        Codigo de barras: {self.getcodigoBarras()} - Unidades disponibles: {self.getstock()}"""
+        texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()} -
+        Sabor: {self.__sabor} - Porcentaje de alcohol: {self.__porcentajeAlcohol}% -
+        Cm3: {self.__cm3} - Precio: ${self.getPrecio()} -
+        Codigo de barras: {self.getCodigoBarras()} - Unidades disponibles: {self.getStock()}"""
         return texto_producto
