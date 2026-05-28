@@ -3,9 +3,10 @@ from src.pedidos.pedido import Pedido
 from src.productos.producto import Producto
 
 class Inventario:
-    def __init__(self, capacidadMaxDeposito: int, umbralMinimoGlobal: int):
+    def __init__(self, capacidadMaxDeposito: int, umbralMinimoGlobal: int, cantPedido : int):
         self.__stockReserva = Deposito(capacidadMaxDeposito)
         self.__umbralMinimoGlobal = umbralMinimoGlobal
+        self.__cantidadPedido = cantPedido
 
     def monitorearStock(self, producto: Producto) -> None:
         if producto.getStock() < producto.getUmbralMinimo():
@@ -31,7 +32,7 @@ class Inventario:
         pedido = Pedido(
         marca=producto.getMarca(),
         nombreProducto=producto.getNombre(),
-        cantSolicitada=producto.getStockMaximo() - producto.getStock(),
+        cantSolicitada=producto.getStockMaximo() + self.__cantidadPedido,
         codigoBarras=producto.getCodigoBarras()
         )
         return pedido
@@ -46,6 +47,9 @@ class Inventario:
 
     def getDisponibilidad(self, codigoBarras: int) -> int:
         return self.__stockReserva.disponibilidad(codigoBarras)
+    
+    def getDeposito(self):
+        return self.__stockReserva
 
     def __str__(self):
         return f"Inventario - Umbral minimo global: {self.__umbralMinimoGlobal}\n{self.__stockReserva}"

@@ -8,19 +8,19 @@ class Promocion:
         self.__productos_descontados = productos_descontados #cantidad de productos descontados en promos como 2*1 o 3*2, en ambos casos los productos descontados son 1
         self.__porcentaje_descuento = porcentaje_descuento
 
-    def aplicarPromo(self, cantidad_comprada : int, producto : Producto):
-        if self.__tipo == 1:  #2*1, 3*2, etc
+    def aplicarPromo(self, cantidad_comprada: int, producto: Producto):
+        precio_unitario = producto.precioFinal(1)  # precio de 1 paquete completo
+        if self.__tipo == 1:
             if cantidad_comprada >= self.__cantidad_necesaria:
-                return producto.getPrecio() * (cantidad_comprada - self.__productos_descontados)
-            return producto.getPrecio() * cantidad_comprada
-        elif self.__tipo == 2:  #descuento por porcentaje
-            return producto.getPrecio() * cantidad_comprada * (1 - self.__porcentaje_descuento / 100)
-        elif self.__tipo == 3:  #segunda unidad con descuento
+                return precio_unitario * (cantidad_comprada - self.__productos_descontados)
+            return precio_unitario * cantidad_comprada
+        elif self.__tipo == 2:
+            return precio_unitario * cantidad_comprada * (1 - self.__porcentaje_descuento / 100)
+        elif self.__tipo == 3:
             if cantidad_comprada >= 2:
-                precio_primera = producto.getPrecio()
-                precio_segunda = producto.getPrecio() * (1 - self.__porcentaje_descuento / 100)
-                return precio_primera + precio_segunda + producto.getPrecio() * (cantidad_comprada - 2)
-            return producto.getPrecio() * cantidad_comprada
+                precio_segunda = precio_unitario * (1 - self.__porcentaje_descuento / 100)
+                return precio_unitario + precio_segunda + precio_unitario * (cantidad_comprada - 2)
+            return precio_unitario * cantidad_comprada
         
     def getTipo(self) -> int:
         return self.__tipo

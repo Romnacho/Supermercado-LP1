@@ -24,7 +24,7 @@ from src.menu.menu import menu_principal
 
 # BEBIDAS
 coca = Bebidas(nombre="Coca Cola", precio=800, stock=2, stockMax=20, codigoBarras=1001, umbralMinimo=5, marca="Coca Cola", unid_x_paquete=1, cm3=500, sabor="cola", porcentajeAlcohol=0)
-heineken = Bebidas(nombre="Heineken", precio=600, stock=20, stockMax=30, codigoBarras=1002, umbralMinimo=5, marca="Heineken", unid_x_paquete=1, cm3=330, sabor="malta", porcentajeAlcohol=5)
+heineken = Bebidas(nombre="Heineken", precio=600, stock=7, stockMax=30, codigoBarras=1002, umbralMinimo=5, marca="Heineken", unid_x_paquete=1, cm3=330, sabor="malta", porcentajeAlcohol=5)
 jugo = Bebidas(nombre="Cepita Naranja", precio=400, stock=10, stockMax=15, codigoBarras=1003, umbralMinimo=3, marca="Cepita", unid_x_paquete=1, cm3=200, sabor="naranja", porcentajeAlcohol=0)
 
 # CARNE
@@ -112,7 +112,7 @@ promo_descuento = Promocion(tipo=2, cantidad_necesaria=1, productos_descontados=
 promo_segunda_unidad = Promocion(tipo=3, cantidad_necesaria=2, productos_descontados=1, porcentaje_descuento=50)
 
 # INVENTARIO
-inventario = Inventario(capacidadMaxDeposito=1000, umbralMinimoGlobal=10)
+inventario = Inventario(capacidadMaxDeposito=1000, umbralMinimoGlobal=10, cantPedido=30)
 
 # ALMACEN
 listaGondolas = [gondola_bebidas, gondola_carnes, gondola_facturas, gondola_fiambres,
@@ -128,6 +128,7 @@ productos = [coca, heineken, jugo, asado, pollo, lomo, medialuna, vigilante, ca√
 
 for producto in productos:
     almacen.registrarProducto(producto)
+    inventario.getDeposito().agregarStock(producto.getCodigoBarras(), 10)  #stock inicial en deposito x producto
 
 # CARRITO
 lector = LectorDeCodigoDeBarras(idLector=1)

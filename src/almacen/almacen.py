@@ -40,7 +40,7 @@ class Almacen:
                 producto.actualizarStock(-cantidad_a_reponer)
                 self.__inventario.restarDelDeposito(producto.getCodigoBarras(), cantidad_a_reponer)
             return self.__inventario.monitorearStock(producto)  # genera pedido si deposito vacio
-        print("Stock OK\n")
+        print("Stock OK")
         return None
 
     def reponerProducto(self, codigo: int):
@@ -65,7 +65,15 @@ class Almacen:
             tipo_promo = gondola.getPromo()
             promo = next((p for p in self.__promos if p.getTipo() == tipo_promo), None)
             if promo:
-                return promo.aplicarPromo(cantidad, producto)
+                precio_sin_promo = producto.precioFinal(cantidad)
+                precio_con_promo = promo.aplicarPromo(cantidad, producto)
+                ahorro = precio_sin_promo - precio_con_promo
+                if ahorro > 0:
+                    print(f"\n🏷️  Promo aplicada: {promo}")
+                    print(f"   Precio sin promo: ${precio_sin_promo}")
+                    print(f"   Precio con promo: ${precio_con_promo}")
+                    print(f"   Ahorro: ${ahorro}")
+                return precio_con_promo
         return producto.precioFinal(cantidad)
 
     def getListaGondolas(self):
