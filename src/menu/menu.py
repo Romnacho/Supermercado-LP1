@@ -21,10 +21,8 @@ def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, prov
 
         if opcion == "1":
             menu_gondolas(almacen, carrito, proveedor, inventario)
-            continuar()
         elif opcion == "2":
             menu_carrito(carrito)
-            continuar()
         elif opcion == "3":
             if len(carrito.getListaProductos()) == 0:
                 print("\nEl carrito está vacío!")
@@ -35,15 +33,14 @@ def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, prov
                 break
         elif opcion == "4":
             simulacionDeCompra(lector, almacen, carrito, proveedor, inventario, cliente)
-            continuar()
             carrito.vaciarCarrito()
+            continuar()
         elif opcion == "5":
             print("\nHasta luego!")
             break
         else:
             print("\nOpción inválida, intentá de nuevo")
             continuar()
-
 
 def menu_gondolas(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario):
     limpiar()
@@ -63,10 +60,10 @@ def menu_gondolas(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, i
         else:
             print("\nOpción inválida, intentá de nuevo")
 
-
 def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario, gondola : Gondola):
     limpiar()
     while True:
+        limpiar()
         print(f"\n=== {gondola.getTipo().upper()} ===")
         if gondola.getPromo() != 0:
             print(f"PROMO: {gondola.getPromoDescripcion()}")
@@ -85,7 +82,6 @@ def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Pr
         else:
             print("\nOpción inválida, intentá de nuevo")
 
-
 def mostrar_productos(gondola : Gondola):
     limpiar()
     print(f"\n=== PRODUCTOS EN {gondola.getTipo().upper()} ===")
@@ -93,7 +89,7 @@ def mostrar_productos(gondola : Gondola):
     for i, producto in enumerate(productos):
         print(f"\n{i+1}. {producto}")
         print("-" * 40)
-
+    continuar()
 
 def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario, gondola : Gondola):
     limpiar()
@@ -125,13 +121,13 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
             almacen.reponerProducto(pedido.getCodigoBarras())
         continuar()
 
-
 def menu_carrito(carrito : Carrito):
     limpiar()
     while True:
         print("\n=== TU CARRITO ===")
         if len(carrito.getListaProductos()) == 0:
             print("El carrito está vacío")
+            continuar()
             break
 
         productos = carrito.getListaProductos()
@@ -148,6 +144,7 @@ def menu_carrito(carrito : Carrito):
                 producto, precio = productos[int(opcion_eliminar)-1]
                 carrito.eliminarProducto(producto, precio)
                 print(f"\n✓ {producto.getNombre()} eliminado del carrito")
+                continuar()
             else:
                 print("\nOpción inválida")
         elif opcion == "2":

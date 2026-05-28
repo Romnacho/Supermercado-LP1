@@ -139,6 +139,6 @@ carrito = Carrito(lectorBarra=lector, pantalla=pantalla)
 cliente = Cliente(idCliente=1, nombre="Carlitos", carrito=carrito)
 
 # PROVEEDOR
-proveedor = Proveedor(nombreEmpresa="Coca Cola SA", cuit=123456789, mail="pedidos@coca.com", marcasQueProvee=["Coca Cola"])
+proveedor = Proveedor(nombreEmpresa="Proveedor 1", cuit=123456789, mail="pedidos@gmail.com", marcasQueProvee=["Todas"])
 
 menu_principal(almacen, carrito, cliente, proveedor, inventario, lector)
