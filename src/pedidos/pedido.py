@@ -1,11 +1,12 @@
 class Pedido:
     __contador = 0 #para id
-    def __init__(self, marca: str, nombreProducto: str, cantSolicitada: float):
+    def __init__(self, marca: str, nombreProducto: str, cantSolicitada: float, codigoBarras):
         Pedido.__contador += 1
         self.__idPedido = Pedido.__contador
         self.__marca = marca
         self.__nombreProducto = nombreProducto
         self.__cantSolicitada = cantSolicitada
+        self.__codigoBarras = codigoBarras
         self.__estado = "pendiente"
 
     def recibirPedido(self) -> None:
@@ -22,6 +23,9 @@ class Pedido:
 
     def getMarca(self) -> str:
         return self.__marca
+    
+    def getCodigoBarras(self) -> int:
+        return self.__codigoBarras
 
     def __str__(self):
         return f"Pedido {self.__idPedido} - {self.__nombreProducto} ({self.__marca}) - Cantidad: {self.__cantSolicitada} - Estado: {self.__estado}"

@@ -15,14 +15,48 @@ class Almacen:
     def registrarProducto(self, producto: Producto) -> None:
         self.__preciosXCodigo[producto.getCodigoBarras()] = producto
 
-    def procesarEscaneo(self, codigo: int, carrito: Carrito, cantidad: int = 1) -> None:
+    def procesarEscaneo(self, codigo: int, carrito: Carrito, cantidad: int = 1):
         producto = self.__preciosXCodigo.get(codigo)
         if producto:
+            if producto.getStock() < cantidad:
+                print(f"\nStock insuficiente. Solo hay {producto.getStock()} unidades de {producto.getNombre()}")
+                return False
             precio_final = self.calcularPrecioFinal(producto, cantidad)
             carrito.escanearYAgregar(producto, precio_final)
-            return self.gestionarReposicion(producto)
+            producto.actualizarStock(cantidad)
+            return self.gestionarReposicion(producto)  # genera pedido si hace falta
         else:
             print(f"Producto con codigo {codigo} no encontrado")
+            return False
+
+    def gestionarReposicion(self, producto: Producto):
+        # se llama al comprar, repone desde deposito o genera pedido
+        print(f"\nCheckeando stock de {producto.getNombre()}")
+        if producto.getStock() < producto.getUmbralMinimo():
+            cantidad_necesaria = producto.getStockMaximo() - producto.getStock()
+            disponible = self.__inventario.getDisponibilidad(producto.getCodigoBarras())
+            cantidad_a_reponer = min(cantidad_necesaria, disponible)
+            if cantidad_a_reponer > 0:
+                producto.actualizarStock(-cantidad_a_reponer)
+                self.__inventario.restarDelDeposito(producto.getCodigoBarras(), cantidad_a_reponer)
+            return self.__inventario.monitorearStock(producto)  # genera pedido si deposito vacio
+        print("Stock OK\n")
+        return None
+
+    def reponerProducto(self, codigo: int):
+        # se llama despues de recibir pedido, solo repone sin generar pedido
+        producto = self.__preciosXCodigo.get(codigo)
+        print(f"Stock actual: {producto.getStock()} - Umbral: {producto.getUmbralMinimo()}")
+        print(f"Disponible en deposito: {self.__inventario.getDisponibilidad(codigo)}")
+        if producto:
+            if producto.getStock() < producto.getUmbralMinimo():
+                cantidad_necesaria = producto.getStockMaximo() - producto.getStock()
+                disponible = self.__inventario.getDisponibilidad(codigo)
+                cantidad_a_reponer = min(cantidad_necesaria, disponible)
+                if cantidad_a_reponer > 0:
+                    producto.actualizarStock(-cantidad_a_reponer)
+                    self.__inventario.restarDelDeposito(codigo, cantidad_a_reponer)
+                    print(f"Stock de {producto.getNombre()} repuesto a {producto.getStock()}")
         return None
 
     def calcularPrecioFinal(self, producto: Producto, cantidad: int) -> float:
@@ -34,16 +68,8 @@ class Almacen:
                 return promo.aplicarPromo(cantidad, producto)
         return producto.precioFinal(cantidad)
 
-    def gestionarReposicion(self, producto: Producto) -> None:
-        print(f"\nCheckeando stock del producto")
-        if producto.getStock() < producto.getUmbralMinimo():
-            cantidad_necesaria = producto.getStockMaximo() - producto.getStock()
-            disponible = self.__inventario.getDisponibilidad(producto.getCodigoBarras())
-            cantidad_a_reponer = min(cantidad_necesaria, disponible)
-            producto.actualizarStock(-cantidad_a_reponer)
-            return self.__inventario.monitorearStock(producto)
-        print("Tamo bien de stock\n")
-        return None
+    def getListaGondolas(self):
+        return self.__listaGondolas
 
     def __buscarGondola(self, producto: Producto) -> Gondola:
         for gondola in self.__listaGondolas:

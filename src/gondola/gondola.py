@@ -33,6 +33,21 @@ class Gondola():
     def getPromo(self):
         return self.__promo
     
+    def getTipo(self) -> str:
+        return self.__tipo
+    
+    def getPromoDescripcion(self) -> str:
+        if self.__promo == 1:
+            return "2x1"
+        elif self.__promo == 2:
+            return "20% de descuento"
+        elif self.__promo == 3:
+            return "Segunda unidad 50% off"
+        return ""
+
+    def getProductos(self) -> list:
+        return self.__productos
+    
     def tieneProducto(self, producto: Producto) -> bool:
         return producto in self.__productos and any(sensor.detectarStock() for sensor in self.__sensores)
     

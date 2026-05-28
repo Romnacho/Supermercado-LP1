@@ -20,6 +20,7 @@ from src.pedidos.proveedor import Proveedor
 from src.hardware.lectordecodigo import LectorDeCodigoDeBarras
 from src.hardware.pantallaOLED import PantallaOLED
 from src.promos.promos import Promocion
+from src.menu.menu import menu_principal
 
 # BEBIDAS
 coca = Bebidas(nombre="Coca Cola", precio=800, stock=2, stockMax=20, codigoBarras=1001, umbralMinimo=5, marca="Coca Cola", unid_x_paquete=1, cm3=500, sabor="cola", porcentajeAlcohol=0)
@@ -139,55 +140,4 @@ cliente = Cliente(idCliente=1, nombre="Carlitos", carrito=carrito)
 # PROVEEDOR
 proveedor = Proveedor(nombreEmpresa="Coca Cola SA", cuit=123456789, mail="pedidos@coca.com", marcasQueProvee=["Coca Cola"])
 
-
-# SIMULACION DE COMPRA
-print("=== INICIO DE COMPRA ===\n")
-
-# BEBIDAS
-print("--- Sector Bebidas ---")
-codigo = lector.leerCodigo(1001)
-pedido = almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-if pedido:
-    proveedor.recibirPedido(pedido)
-    proveedor.despacharMercaderia()
-    inventario.recibirPedido(pedido)
-
-# CARNICERIA
-print("--- Sector Carniceria ---")
-codigo = lector.leerCodigo(2001)  # asado
-almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-
-# FIAMBRERIA
-print("--- Sector Fiambreria ---")
-codigo = lector.leerCodigo(4001)  # jamon cocido
-almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-
-# GALLETITAS - PROMO 2x1
-print("--- Sector Galletitas (Promo 2x1) ---")
-codigo = lector.leerCodigo(5001)  # oreo
-almacen.procesarEscaneo(codigo, carrito, cantidad=2)
-
-# LIMPIEZA
-print("--- Sector Limpieza ---")
-codigo = lector.leerCodigo(6002)  # detergente
-almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-
-# PANADERIA - PROMO 20% DESCUENTO
-print("--- Sector Panaderia (Promo 20% descuento) ---")
-codigo = lector.leerCodigo(7001)  # pan lactal
-almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-
-# PERFUMERIA
-print("--- Sector Perfumeria ---")
-codigo = lector.leerCodigo(8001)  # shampoo
-almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-
-# VERDULERIA
-print("--- Sector Verduleria ---")
-codigo = lector.leerCodigo(9002)  # papa
-almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-
-print("\n=== RESUMEN DE COMPRA ===")
-print(carrito)
-print("\n=== PAGO ===")
-cliente.pagar()
+menu_principal(almacen, carrito, cliente, proveedor, inventario, lector)

@@ -29,16 +29,20 @@ class Inventario:
     def solicitarPedido(self, producto: Producto) -> Pedido:
         print("Solicitando pedido del producto a Proveedor")
         pedido = Pedido(
-            marca=producto.getMarca(),
-            nombreProducto=producto.getNombre(),
-            cantSolicitada=producto.getStockMaximo() - producto.getStock()
+        marca=producto.getMarca(),
+        nombreProducto=producto.getNombre(),
+        cantSolicitada=producto.getStockMaximo() - producto.getStock(),
+        codigoBarras=producto.getCodigoBarras()
         )
         return pedido
 
     def recibirPedido(self, pedido: Pedido) -> None:
         print("Pedido recibido, acutalizando stock")
         pedido.recibirPedido()
-        self.__stockReserva.agregarStock(pedido.getNombreProducto(), pedido.getCantSolicitada())
+        self.__stockReserva.agregarStock(pedido.getCodigoBarras(), pedido.getCantSolicitada())
+
+    def restarDelDeposito(self, codigoBarras: int, cantidad: int) -> None:
+        self.__stockReserva.reponer(codigoBarras, cantidad)
 
     def getDisponibilidad(self, codigoBarras: int) -> int:
         return self.__stockReserva.disponibilidad(codigoBarras)
