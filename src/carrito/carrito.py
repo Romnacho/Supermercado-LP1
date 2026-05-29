@@ -43,7 +43,7 @@ class Carrito:
 
     def __str__(self) -> str:
         texto = "Carrito:\n"
-        for producto, precio in self.__listaProductos:
+        for producto, precio, cantidad in self.__listaProductos:
             texto += f"{producto} - ${precio}\n"
         texto += f"Total: ${self.__totalAcumulado}"
         return texto
