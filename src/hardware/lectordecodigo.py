@@ -5,5 +5,5 @@ class LectorDeCodigoDeBarras :
         self.__idLector = idLector
         pass
 
-    def leerCodigo(self, codigo):
+    def leerCodigo(self, codigo) -> int:
         return codigo

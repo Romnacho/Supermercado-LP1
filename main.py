@@ -13,6 +13,7 @@ from src.hardware.tablet import Tablet
 from src.gondola.gondola import Gondola
 
 from src.almacen.inventario import Inventario
+from src.almacen.deposito import Deposito
 from src.almacen.almacen import Almacen
 from src.carrito.carrito import Carrito
 from src.cliente.cliente import Cliente
@@ -111,14 +112,20 @@ promo_2x1 = Promocion(tipo=1, cantidad_necesaria=2, productos_descontados=1, por
 promo_descuento = Promocion(tipo=2, cantidad_necesaria=1, productos_descontados=0, porcentaje_descuento=20)
 promo_segunda_unidad = Promocion(tipo=3, cantidad_necesaria=2, productos_descontados=1, porcentaje_descuento=50)
 
+# DEPOSITO
+deposito = Deposito(capacidadMax=1000)
+
 # INVENTARIO
-inventario = Inventario(capacidadMaxDeposito=1000, umbralMinimoGlobal=10, cantXPedido=30)
+inventario = Inventario(deposito=deposito, umbralMinimoGlobal=10, cantXPedido=30)
 
 # ALMACEN
 listaGondolas = [gondola_bebidas, gondola_carnes, gondola_facturas, gondola_fiambres,
                  gondola_galletitas, gondola_limpieza, gondola_panaderia, gondola_verduras, gondola_perfumeria]
 
-almacen = Almacen(listaGondolas=listaGondolas, inventario=inventario, promos=[promo_2x1, promo_descuento, promo_segunda_unidad])
+# PROVEEDOR
+proveedor = Proveedor(nombreEmpresa="Proveedor 1", cuit=123456789, mail="pedidos@gmail.com", marcasQueProvee=["Todas"])
+
+almacen = Almacen(listaGondolas=listaGondolas, inventario=inventario, promos=[promo_2x1, promo_descuento, promo_segunda_unidad], proveedor=proveedor)
 
 # registramos todos los productos en el almacen
 productos = [coca, heineken, jugo, asado, pollo, lomo, medialuna, vigilante, cañon,
@@ -137,9 +144,6 @@ carrito = Carrito(lectorBarra=lector, pantalla=pantalla)
 
 # CLIENTE
 cliente = Cliente(idCliente=1, nombre="Carlitos", carrito=carrito)
-
-# PROVEEDOR
-proveedor = Proveedor(nombreEmpresa="Proveedor 1", cuit=123456789, mail="pedidos@gmail.com", marcasQueProvee=["Todas"])
 
 """se ejecuta el menu principal, se le pasan las instancias necesarias para que acceda"""
 

@@ -13,14 +13,8 @@ def simulacionDeCompra(lector : LectorDeCodigoDeBarras, almacen : Almacen, carri
     # BEBIDAS
     print("--- Sector Bebidas ---")
     codigo = lector.leerCodigo(1001)
-    pedido = almacen.procesarEscaneo(codigo, carrito, cantidad=1)
-    if pedido:
-        print("\nStock bajo, generando pedido al proveedor...")
-        proveedor.recibirPedido(pedido)
-        proveedor.despacharMercaderia()
-        inventario.recibirPedido(pedido)
-        almacen.reponerProducto(pedido.getCodigoBarras())
-
+    almacen.procesarEscaneo(codigo, carrito, cantidad=1)
+    
     # CARNICERIA
     print("--- Sector Carniceria ---")
     codigo = lector.leerCodigo(2001)  # asado

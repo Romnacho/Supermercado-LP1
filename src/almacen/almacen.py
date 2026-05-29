@@ -4,14 +4,16 @@ from src.productos.producto import Producto
 from src.carrito.carrito import Carrito
 from src.promos.promos import Promocion
 from src.pedidos.pedido import Pedido
+from src.pedidos.proveedor import Proveedor
 from typing import List, Union
 
 class Almacen:
-    def __init__(self, listaGondolas: List[Gondola], inventario: Inventario, promos: list[Promocion]):
+    def __init__(self, listaGondolas: List[Gondola], inventario: Inventario, promos: list[Promocion], proveedor : Proveedor):
         self.__listaGondolas = listaGondolas
         self.__inventario = inventario
         self.__preciosXCodigo = {}  #{codigoBarras: producto}
         self.__promos = promos
+        self.__proveedor = proveedor
 
     """Registra un producto al sistema"""
 
@@ -37,7 +39,6 @@ class Almacen:
     """Gestiona la reposicion de un producto, se llama al comprar, repone o genera el pedido si es necesario"""
 
     def gestionarReposicion(self, producto: Producto):
-        # se llama al comprar, repone desde deposito o genera pedido
         print(f"\nCheckeando stock de {producto.getNombre()}")
         if producto.getStock() < producto.getUmbralMinimo():
             cantidad_necesaria = producto.getStockMaximo() - producto.getStock()
@@ -46,7 +47,14 @@ class Almacen:
             if cantidad_a_reponer > 0:
                 producto.actualizarStock(-cantidad_a_reponer)
                 self.__inventario.restarDelDeposito(producto.getCodigoBarras(), cantidad_a_reponer)
-            return self.__inventario.monitorearStock(producto)  # genera pedido si deposito vacio
+            pedido = self.__inventario.monitorearStock(producto)
+            if pedido:
+                print("\nStock bajo, contactando proveedor...")
+                self.__proveedor.recibirPedido(pedido)
+                self.__proveedor.despacharMercaderia()
+                self.__inventario.recibirPedido(pedido)
+                self.reponerProducto(pedido.getCodigoBarras())
+            return None
         print("Stock OK")
         return None
     

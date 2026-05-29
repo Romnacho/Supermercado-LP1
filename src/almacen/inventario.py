@@ -3,8 +3,8 @@ from src.pedidos.pedido import Pedido
 from src.productos.producto import Producto
 
 class Inventario:
-    def __init__(self, capacidadMaxDeposito: int, umbralMinimoGlobal: int, cantXPedido : int):
-        self.__stockReserva = Deposito(capacidadMaxDeposito)
+    def __init__(self, umbralMinimoGlobal: int, cantXPedido : int, deposito : Deposito):
+        self.__stockReserva = deposito
         self.__umbralMinimoGlobal = umbralMinimoGlobal
         self.__cantidadXPedido = cantXPedido
 

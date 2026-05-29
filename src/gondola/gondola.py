@@ -10,7 +10,7 @@ class Gondola():
         self.__sensores = sensores
         self.__tablet = tablet
         self.__tipo = tipo
-        self.__promo = promo #None si no tiene promos, sino, el numero de promo
+        self.__promo = promo #0 si no tiene promos, sino, el numero de promo
 
     """Añade un produto nuevo a la gondola"""
 

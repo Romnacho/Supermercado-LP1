@@ -146,12 +146,6 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
             continuar()
             return
         print(f"\n✓ {producto.getNombre()} agregado al carrito!")
-        if pedido:
-            print("\nStock bajo, generando pedido al proveedor...")
-            proveedor.recibirPedido(pedido)
-            proveedor.despacharMercaderia()
-            inventario.recibirPedido(pedido)
-            almacen.reponerProducto(pedido.getCodigoBarras())
         continuar()
 
 """Menu carrito, muestra los productos que hay, permite eliminar los productos y volver al menu principal, si esta vacio no te muestra nada"""
