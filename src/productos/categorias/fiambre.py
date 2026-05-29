@@ -8,7 +8,7 @@ class Fiambre(Prod_x_peso):
     def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo de fiambre: {self.__tipo_fiambre} - Precio por kilo: ${self.getPrecio()}
-        Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock()}"""
+        Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock():.2f}"""
         return texto_producto
     
     #def contar_fetas (self)
