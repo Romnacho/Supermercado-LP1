@@ -12,6 +12,6 @@ class Limpieza(Prod_x_unidad):
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo de aplicacion: {self.__tipoAplicacion}
         Inflamable: {'Si' if self.__inflamable else 'No'} - Toxico: {'Si' if self.__toxico else 'No'}
-        Peso: {self.__pesoNeto} - Precio: ${self.getPrecio()}
+        Peso: {self.__pesoNeto} - Precio por unidad: ${self.getPrecio()}
         Codigo de barras: {self.getCodigoBarras()} - Unidades disponibles: {self.getStock()}"""
         return texto_producto

@@ -11,6 +11,6 @@ class Galletita(Prod_x_unidad):
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Sabor: {self.__sabor} - TACC: {'Si' if self.__tieneTACC else 'No'}
         Unidades por paquete: {self.getUnid_X_Paquete()} - Peso: {self.__peso_neto}
-        Precio: ${self.getPrecio()}
+        Precio por unidad: ${self.getPrecio()}
         Codigo de barras: {self.getCodigoBarras()} - Paquetes disponibles: {self.getStock()}"""
         return texto_producto

@@ -10,7 +10,7 @@ class Perfumeria(Prod_x_unidad):
     def __str__(self):
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Fragancia: {self.__fragancia} - Importado: {'Si' if self.__importado else 'No'}
-        Cm3: {self.__cm3} - Precio: ${self.getPrecio()}
+        Cm3: {self.__cm3} - Precio por unidad: ${self.getPrecio()}
         Codigo de barras: {self.getCodigoBarras()} - Unidades disponibles: {self.getStock()}"""
         return texto_producto
     

@@ -8,6 +8,6 @@ class Factura(Prod_x_unidad):
     def __str__(self):
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo: {self.__tipo} - Unidades por paquete: {self.getUnid_X_Paquete()}
-        Precio: ${self.getPrecio()}
+        Precio por unidad: ${self.getPrecio()}
         Codigo de barras: {self.getCodigoBarras()} - Paquetes disponibles: {self.getStock()}"""
         return texto_producto
