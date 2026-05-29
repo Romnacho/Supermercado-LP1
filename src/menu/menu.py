@@ -110,12 +110,16 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
                 print("\nCantidad inválida")
                 return
             cantidad = float(cantidad)
+            print(f"\n Kilos de {producto.getNombre()} agregados al carrito")
+            print(f"\n Kilos disponibles en góndola: {producto.getStock()} kg")
         else:
             cantidad = input(f"¿Cuántos paquetes de {producto.getNombre()}?")
             if not cantidad.isdigit() or int(cantidad) <= 0:
                 print("\nCantidad inválida")
                 return
             cantidad = int(cantidad)
+            print(f"\n Paquetes de {producto.getNombre()} agregados al carrito")
+            print(f"\n Stock disponible en góndola: {producto.getStock()} unidades")
             
         cantidad = float(cantidad)
         pedido = almacen.procesarEscaneo(producto.getCodigoBarras(), carrito, cantidad)
@@ -162,6 +166,7 @@ def menu_carrito(carrito : Carrito, inventario : Inventario):
             else:
                 print("\nOpción inválida")
         elif opcion == "2":
+            limpiar()
             break
         else:
             print("\nOpción inválida")
