@@ -10,5 +10,5 @@ class Carne(Prod_x_peso):
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo de corte: {self.__tipo_corte} - Categoria: {self.__categoria}
         Precio por kilo: ${self.getPrecio()}
-        Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock()}"""
+        Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock():.2f}"""
         return texto_producto

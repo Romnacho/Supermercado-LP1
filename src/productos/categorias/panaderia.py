@@ -7,10 +7,10 @@ class Panaderia(Prod_x_peso):
 
     def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()}
-        Tipo de pan: {self.__tipo_pan} - Precio por kilo: ${self.getPrecio()}
-        Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock()}"""
+        Tipo de pan: {self.__tipo_pan} - Precio por kilo: ${self.getPrecio()} - Kilo por bolson: 3
+        Codigo de barras: {self.getCodigoBarras()} - Bolsones disponibles: {self.contar_bolsones():.2f}"""
         return texto_producto
 
-    def contar_bolsones (self) -> str: #tomamos como peso de un bolson 15 kilos
-        bolsones = self.getStock() / 15
-        return f"Hay {bolsones:.0f} bolsones sin abrir"
+    def contar_bolsones (self) -> str: #tomamos como peso de un bolson 3 kilos
+        bolsones = self.getStock() / 3
+        return bolsones

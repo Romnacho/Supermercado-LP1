@@ -8,5 +8,5 @@ class Verdura(Prod_x_peso):
     def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo de verdura: {self.__tipo_verdura} - Precio por kilo: ${self.getPrecio()}
-        Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock()}"""
+        Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock():.2f}"""
         return texto_producto
