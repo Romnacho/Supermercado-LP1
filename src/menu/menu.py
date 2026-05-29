@@ -111,14 +111,12 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
                 return
             cantidad = float(cantidad)
         else:
+            cantidad = input(f"¿Cuántos paquetes de {producto.getNombre()}?")
             if not cantidad.isdigit() or int(cantidad) <= 0:
                 print("\nCantidad inválida")
                 return
             cantidad = int(cantidad)
-        if producto.getTipoProducto() == "Paquete":
-            cantidad = input(f"¿Cuántos paquetes de {producto.getNombre()}?")
-        
-
+            
         cantidad = float(cantidad)
         pedido = almacen.procesarEscaneo(producto.getCodigoBarras(), carrito, cantidad)
         if pedido is False:
