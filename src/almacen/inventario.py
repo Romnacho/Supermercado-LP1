@@ -3,10 +3,10 @@ from src.pedidos.pedido import Pedido
 from src.productos.producto import Producto
 
 class Inventario:
-    def __init__(self, capacidadMaxDeposito: int, umbralMinimoGlobal: int, cantPedido : int):
+    def __init__(self, capacidadMaxDeposito: int, umbralMinimoGlobal: int, cantXPedido : int):
         self.__stockReserva = Deposito(capacidadMaxDeposito)
         self.__umbralMinimoGlobal = umbralMinimoGlobal
-        self.__cantidadPedido = cantPedido
+        self.__cantidadXPedido = cantXPedido
 
     """Monitorea el stock de un producto, si esta bajo chequea el deposito y repone, si el deposito no tiene genera un pedido"""
 
@@ -38,7 +38,7 @@ class Inventario:
         pedido = Pedido(
         marca=producto.getMarca(),
         nombreProducto=producto.getNombre(),
-        cantSolicitada=producto.getStockMaximo() + self.__cantidadPedido,
+        cantSolicitada=producto.getStockMaximo() + self.__cantidadXPedido,
         codigoBarras=producto.getCodigoBarras()
         )
         return pedido

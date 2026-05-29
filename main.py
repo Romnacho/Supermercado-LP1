@@ -112,7 +112,7 @@ promo_descuento = Promocion(tipo=2, cantidad_necesaria=1, productos_descontados=
 promo_segunda_unidad = Promocion(tipo=3, cantidad_necesaria=2, productos_descontados=1, porcentaje_descuento=50)
 
 # INVENTARIO
-inventario = Inventario(capacidadMaxDeposito=1000, umbralMinimoGlobal=10, cantPedido=30)
+inventario = Inventario(capacidadMaxDeposito=1000, umbralMinimoGlobal=10, cantXPedido=30)
 
 # ALMACEN
 listaGondolas = [gondola_bebidas, gondola_carnes, gondola_facturas, gondola_fiambres,

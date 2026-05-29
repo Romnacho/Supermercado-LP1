@@ -3,7 +3,8 @@ from src.almacen.inventario import Inventario
 from src.productos.producto import Producto
 from src.carrito.carrito import Carrito
 from src.promos.promos import Promocion
-from typing import List
+from src.pedidos.pedido import Pedido
+from typing import List, Union
 
 class Almacen:
     def __init__(self, listaGondolas: List[Gondola], inventario: Inventario, promos: list[Promocion]):
@@ -19,7 +20,7 @@ class Almacen:
 
     """Procesa el escaneo de un producto, actualiza el carrito, el stock y gestiona la reposicion si es necesario"""
 
-    def procesarEscaneo(self, codigo: int, carrito: Carrito, cantidad: int = 1):
+    def procesarEscaneo(self, codigo: int, carrito: Carrito, cantidad: int = 1) -> Union[Pedido, bool, None]:
         producto = self.__preciosXCodigo.get(codigo)
         if producto:
             if producto.getStock() < cantidad:
