@@ -9,5 +9,5 @@ class Factura(Prod_x_unidad):
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo: {self.__tipo} - Unidades por paquete: {self.getUnid_X_Paquete()}
         Precio: ${self.getPrecio()}
-        Codigo de barras: {self.getCodigoBarras()} - Unidades disponibles: {self.getStock()}"""
+        Codigo de barras: {self.getCodigoBarras()} - Paquetes disponibles: {self.getStock()}"""
         return texto_producto

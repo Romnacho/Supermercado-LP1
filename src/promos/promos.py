@@ -11,16 +11,17 @@ class Promocion:
     def aplicarPromo(self, cantidad_comprada: int, producto: Producto):
         precio_unitario = producto.precioFinal(1)  # precio de 1 paquete completo
         if self.__tipo == 1:
-            if cantidad_comprada >= self.__cantidad_necesaria:
-                return precio_unitario * (cantidad_comprada - self.__productos_descontados)
-            return precio_unitario * cantidad_comprada
+            grupos = cantidad_comprada // self.__cantidad_necesaria
+            resto = cantidad_comprada % self.__cantidad_necesaria
+            unidades_pagadas = grupos * (self.__cantidad_necesaria - self.__productos_descontados) + resto
+            return precio_unitario * unidades_pagadas
         elif self.__tipo == 2:
             return precio_unitario * cantidad_comprada * (1 - self.__porcentaje_descuento / 100)
         elif self.__tipo == 3:
-            if cantidad_comprada >= 2:
-                precio_segunda = precio_unitario * (1 - self.__porcentaje_descuento / 100)
-                return precio_unitario + precio_segunda + precio_unitario * (cantidad_comprada - 2)
-            return precio_unitario * cantidad_comprada
+            pares = cantidad_comprada // 2
+            resto = cantidad_comprada % 2
+            precio_segunda = precio_unitario * (1 - self.__porcentaje_descuento / 100)
+            return pares * (precio_unitario + precio_segunda) + resto * precio_unitario
         
     def getTipo(self) -> int:
         return self.__tipo

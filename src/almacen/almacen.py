@@ -22,7 +22,7 @@ class Almacen:
                 print(f"\nStock insuficiente. Solo hay {producto.getStock()} unidades de {producto.getNombre()}")
                 return False
             precio_final = self.calcularPrecioFinal(producto, cantidad)
-            carrito.escanearYAgregar(producto, precio_final)
+            carrito.escanearYAgregar(producto, precio_final, cantidad)
             producto.actualizarStock(cantidad)
             return self.gestionarReposicion(producto)  # genera pedido si hace falta
         else:

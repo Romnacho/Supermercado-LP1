@@ -12,5 +12,5 @@ class Galletita(Prod_x_unidad):
         Sabor: {self.__sabor} - TACC: {'Si' if self.__tieneTACC else 'No'}
         Unidades por paquete: {self.getUnid_X_Paquete()} - Peso: {self.__peso_neto}
         Precio: ${self.getPrecio()}
-        Codigo de barras: {self.getCodigoBarras()} - Unidades disponibles: {self.getStock()}"""
+        Codigo de barras: {self.getCodigoBarras()} - Paquetes disponibles: {self.getStock()}"""
         return texto_producto

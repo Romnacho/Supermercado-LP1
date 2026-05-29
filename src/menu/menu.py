@@ -22,7 +22,7 @@ def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, prov
         if opcion == "1":
             menu_gondolas(almacen, carrito, proveedor, inventario)
         elif opcion == "2":
-            menu_carrito(carrito)
+            menu_carrito(carrito, inventario)
         elif opcion == "3":
             if len(carrito.getListaProductos()) == 0:
                 print("\nEl carrito está vacío!")
@@ -54,6 +54,7 @@ def menu_gondolas(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, i
 
         opcion = input("\nElegí una góndola: ")
         if opcion == str(len(gondolas)+1):
+            limpiar()
             break
         elif opcion.isdigit() and 1 <= int(opcion) <= len(gondolas):
             menu_gondola_individual(almacen, carrito, proveedor, inventario, gondolas[int(opcion)-1])
@@ -63,7 +64,6 @@ def menu_gondolas(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, i
 def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario, gondola : Gondola):
     limpiar()
     while True:
-        limpiar()
         print(f"\n=== {gondola.getTipo().upper()} ===")
         if gondola.getPromo() != 0:
             print(f"PROMO: {gondola.getPromoDescripcion()}")
@@ -75,9 +75,13 @@ def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Pr
 
         if opcion == "1":
             mostrar_productos(gondola)
+            continuar()
+            limpiar()
         elif opcion == "2":
             agregar_producto(almacen, carrito, proveedor, inventario, gondola)
+            limpiar()
         elif opcion == "3":
+            limpiar()
             break
         else:
             print("\nOpción inválida, intentá de nuevo")
@@ -89,10 +93,8 @@ def mostrar_productos(gondola : Gondola):
     for i, producto in enumerate(productos):
         print(f"\n{i+1}. {producto}")
         print("-" * 40)
-    continuar()
 
 def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario, gondola : Gondola):
-    limpiar()
     mostrar_productos(gondola)
     productos = gondola.getProductos()
     opcion = input("\nElegí un producto (o 0 para volver): ")
@@ -121,7 +123,7 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
             almacen.reponerProducto(pedido.getCodigoBarras())
         continuar()
 
-def menu_carrito(carrito : Carrito):
+def menu_carrito(carrito : Carrito, inventario : Inventario):
     limpiar()
     while True:
         print("\n=== TU CARRITO ===")
@@ -131,8 +133,8 @@ def menu_carrito(carrito : Carrito):
             break
 
         productos = carrito.getListaProductos()
-        for i, (producto, precio) in enumerate(productos):
-            print(f"{i+1}. {producto.getNombre()} - ${precio}")
+        for i, (producto, precio, cantidad) in enumerate(productos):
+            print(f"{i+1}. {producto.getNombre()} x {cantidad} - ${precio}")
         print(f"\nTotal: ${carrito.getTotalAcumulado()}")
         print("\n1. Eliminar producto")
         print("2. Volver")
@@ -141,8 +143,12 @@ def menu_carrito(carrito : Carrito):
         if opcion == "1":
             opcion_eliminar = input("¿Qué producto querés eliminar? ")
             if opcion_eliminar.isdigit() and 1 <= int(opcion_eliminar) <= len(productos):
-                producto, precio = productos[int(opcion_eliminar)-1]
-                carrito.eliminarProducto(producto, precio)
+                producto, precio, cantidad = productos[int(opcion_eliminar)-1]
+                carrito.eliminarProducto(producto, precio, cantidad)
+                if producto.getStock() + cantidad <= producto.getStockMaximo():
+                    producto.actualizarStock(-cantidad)  #devuelve a la gondola
+                else:
+                    inventario.getDeposito().agregarStock(producto.getCodigoBarras(), cantidad)  #manda al deposito
                 print(f"\n✓ {producto.getNombre()} eliminado del carrito")
                 continuar()
             else:
