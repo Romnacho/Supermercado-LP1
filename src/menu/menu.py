@@ -106,13 +106,20 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
         
         if producto.getTipoProducto() == "Peso":
             cantidad = input(f"¿Cuántos kilos de {producto.getNombre()}? ")
+            if not cantidad.replace(".", "", 1).isdigit() or float(cantidad) <= 0:
+                print("\nCantidad inválida")
+                return
+            cantidad = float(cantidad)
+        else:
+            if not cantidad.isdigit() or int(cantidad) <= 0:
+                print("\nCantidad inválida")
+                return
+            cantidad = int(cantidad)
         if producto.getTipoProducto() == "Paquete":
             cantidad = input(f"¿Cuántos paquetes de {producto.getNombre()}?")
-        if not cantidad.isdigit() or int(cantidad) <= 0:
-            print("\nCantidad inválida")
-            return
+        
 
-        cantidad = int(cantidad)
+        cantidad = float(cantidad)
         pedido = almacen.procesarEscaneo(producto.getCodigoBarras(), carrito, cantidad)
         if pedido is False:
             continuar()
