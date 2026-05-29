@@ -5,7 +5,7 @@ class Panaderia(Prod_x_peso):
         super().__init__(nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca)
         self.__tipo_pan = tipo_pan
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()}
         Tipo de pan: {self.__tipo_pan} - Precio por kilo: ${self.getPrecio()}
         Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock()}"""

@@ -8,7 +8,7 @@ class Limpieza(Prod_x_unidad):
         self.__toxico = toxico
         self.__pesoNeto = pesoNeto
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo de aplicacion: {self.__tipoAplicacion}
         Inflamable: {'Si' if self.__inflamable else 'No'} - Toxico: {'Si' if self.__toxico else 'No'}

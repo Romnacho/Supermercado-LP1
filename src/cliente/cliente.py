@@ -14,5 +14,5 @@ class Cliente:
         print(f"Total a pagar: ${total}")
         return total
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Cliente: {self.__nombre} - ID: {self.__idCliente}"

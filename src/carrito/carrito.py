@@ -9,10 +9,14 @@ class Carrito:
         self.__pantalla = pantalla
         self.__totalAcumulado = 0.0
 
+    """Escanea un producto, lo agrega al carrito y va sumando el precio final"""
+
     def escanearYAgregar(self, producto: Producto, precio: float, cantidad: float) -> None:
         self.__listaProductos.append((producto, precio, cantidad))
         self.__totalAcumulado += precio
         self.__pantalla.mostrarTotal(self.__totalAcumulado)
+
+    """Elimina productos del carrito y baja el precio final"""
 
     def eliminarProducto(self, producto: Producto, precio : float, cantidad : float) -> None:
         if (producto, precio, cantidad) in self.__listaProductos:
@@ -20,18 +24,24 @@ class Carrito:
             self.__totalAcumulado -= precio
             self.__pantalla.mostrarTotal(self.__totalAcumulado)
 
+    """Vacia el carrito"""
+
     def vaciarCarrito(self) -> None:
         self.__listaProductos = []
         self.__totalAcumulado = 0.0
         self.__pantalla.mostrarTotal(self.__totalAcumulado)
 
+    """Getters"""
+
     def getTotalAcumulado(self) -> float:
         return self.__totalAcumulado
     
-    def getListaProductos(self):
+    def getListaProductos(self) -> list:
         return self.__listaProductos
+    
+    """Decuelce un str del carrito"""
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto = "Carrito:\n"
         for producto, precio in self.__listaProductos:
             texto += f"{producto} - ${precio}\n"

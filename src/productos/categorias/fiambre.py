@@ -5,7 +5,7 @@ class Fiambre(Prod_x_peso):
         super().__init__(nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca)
         self.__tipo_fiambre = tipo_fiambre
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo de fiambre: {self.__tipo_fiambre} - Precio por kilo: ${self.getPrecio()}
         Codigo de barras: {self.getCodigoBarras()} - Kilos disponibles: {self.getStock()}"""

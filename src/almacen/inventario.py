@@ -8,6 +8,8 @@ class Inventario:
         self.__umbralMinimoGlobal = umbralMinimoGlobal
         self.__cantidadPedido = cantPedido
 
+    """Monitorea el stock de un producto, si esta bajo chequea el deposito y repone, si el deposito no tiene genera un pedido"""
+
     def monitorearStock(self, producto: Producto) -> None:
         if producto.getStock() < producto.getUmbralMinimo():
             print("Stock bajo, checkeando deposito")
@@ -19,6 +21,8 @@ class Inventario:
             return self.solicitarPedido(producto)
         return None
     
+    """Repone sin generar un pedido, lo llama el metodo de arriba"""
+    
     def realizarReposicionInterna(self, producto: Producto) -> None:
         print("Reponiendo desde deposito")
         cantidad_necesaria = producto.getStockMaximo() - producto.getStock()
@@ -26,6 +30,8 @@ class Inventario:
         cantidad_a_reponer = min(cantidad_necesaria, disponible)
         self.__stockReserva.reponer(producto.getCodigoBarras(), cantidad_a_reponer)
         producto.actualizarStock(-cantidad_a_reponer)  #suma al stock del producto
+
+    """Genera un pedido, lo llama monitorearstock"""
 
     def solicitarPedido(self, producto: Producto) -> Pedido:
         print("Solicitando pedido del producto a Proveedor")
@@ -37,19 +43,27 @@ class Inventario:
         )
         return pedido
 
+    """Recibe el pedido del proveedor y repone el stock"""
+
     def recibirPedido(self, pedido: Pedido) -> None:
         print("Pedido recibido, acutalizando stock")
         pedido.recibirPedido()
         self.__stockReserva.agregarStock(pedido.getCodigoBarras(), pedido.getCantSolicitada())
 
+    """Resta del deposito, se llama al comprar"""
+
     def restarDelDeposito(self, codigoBarras: int, cantidad: int) -> None:
         self.__stockReserva.reponer(codigoBarras, cantidad)
+
+    """Getters"""
 
     def getDisponibilidad(self, codigoBarras: int) -> int:
         return self.__stockReserva.disponibilidad(codigoBarras)
     
     def getDeposito(self):
         return self.__stockReserva
+    
+    """Returna un str del inventario"""
 
     def __str__(self):
         return f"Inventario - Umbral minimo global: {self.__umbralMinimoGlobal}\n{self.__stockReserva}"

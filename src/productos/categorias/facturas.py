@@ -5,7 +5,7 @@ class Factura(Prod_x_unidad):
         super().__init__(nombre, precio, stock, stockMax, codigoBarras, umbralMinimo, marca, unid_x_paquete)
         self.__tipo = tipo
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo: {self.__tipo} - Unidades por paquete: {self.getUnid_X_Paquete()}
         Precio por unidad: ${self.getPrecio()}

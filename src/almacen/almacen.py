@@ -12,8 +12,12 @@ class Almacen:
         self.__preciosXCodigo = {}  #{codigoBarras: producto}
         self.__promos = promos
 
+    """Registra un producto al sistema"""
+
     def registrarProducto(self, producto: Producto) -> None:
         self.__preciosXCodigo[producto.getCodigoBarras()] = producto
+
+    """Procesa el escaneo de un producto, actualiza el carrito, el stock y gestiona la reposicion si es necesario"""
 
     def procesarEscaneo(self, codigo: int, carrito: Carrito, cantidad: int = 1):
         producto = self.__preciosXCodigo.get(codigo)
@@ -28,6 +32,8 @@ class Almacen:
         else:
             print(f"Producto con codigo {codigo} no encontrado")
             return False
+        
+    """Gestiona la reposicion de un producto, se llama al comprar, repone o genera el pedido si es necesario"""
 
     def gestionarReposicion(self, producto: Producto):
         # se llama al comprar, repone desde deposito o genera pedido
@@ -42,6 +48,8 @@ class Almacen:
             return self.__inventario.monitorearStock(producto)  # genera pedido si deposito vacio
         print("Stock OK")
         return None
+    
+    """Repone un producto, se llama dso de recibir un pedido, repone desde deposito sin generar pedido"""
 
     def reponerProducto(self, codigo: int):
         # se llama despues de recibir pedido, solo repone sin generar pedido
@@ -59,6 +67,8 @@ class Almacen:
                     print(f"Stock de {producto.getNombre()} repuesto a {producto.getStock()}")
         return None
 
+    """Calcula el precio final y aplica las promos si corresponden"""
+
     def calcularPrecioFinal(self, producto: Producto, cantidad: int) -> float:
         gondola = self.__buscarGondola(producto)
         if gondola and gondola.getPromo() != 0:
@@ -75,15 +85,21 @@ class Almacen:
                     print(f"   Ahorro: ${ahorro}")
                 return precio_con_promo
         return producto.precioFinal(cantidad)
+    
+    """Getter"""
 
-    def getListaGondolas(self):
+    def getListaGondolas(self) -> List[Gondola]:
         return self.__listaGondolas
+    
+    """Busca una gondola por un producto"""
 
     def __buscarGondola(self, producto: Producto) -> Gondola:
         for gondola in self.__listaGondolas:
             if gondola.tieneProducto(producto):
                 return gondola
         return None
+    
+    """Imprime las gondolas"""
 
     def __str__(self):
         return f"Almacen - Gondolas: {len(self.__listaGondolas)}"

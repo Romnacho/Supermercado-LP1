@@ -7,7 +7,7 @@ class Bebidas(Prod_x_unidad):
         self.__sabor = sabor
         self.__porcentajeAlcohol = porcentajeAlcohol
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()} -
         Sabor: {self.__sabor} - Porcentaje de alcohol: {self.__porcentajeAlcohol}% -
         Cm3: {self.__cm3} - Precio por unidad: ${self.getPrecio()} -

@@ -6,7 +6,7 @@ class Carne(Prod_x_peso):
         self.__tipo_corte = tipo_corte
         self.__categoria = categoria
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Tipo de corte: {self.__tipo_corte} - Categoria: {self.__categoria}
         Precio por kilo: ${self.getPrecio()}

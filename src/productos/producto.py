@@ -15,16 +15,22 @@ class Producto(ABC):
     def precioFinal(self): #calcula precio final
         pass
 
-    def validarStock(self): #valida y devuelve bool
+    """Valisa el stock, devuelve un booleano"""
+
+    def validarStock(self) -> bool: #valida y devuelve bool
         return self.__stock > self.__umbralMinimo
     
-    def actualizarPrecios(self, porcentaje): #actualiza el precio por el porcentaje dado, no devuelve nada
+    def actualizarPrecios(self, porcentaje: float) -> None: #actualiza el precio por el porcentaje dado, no devuelve nada
         self.__precio += self.__precio * (porcentaje/100)
         return None
+    
+    """Actualiza el stock, recibe la cantidad vendida y la resta"""
 
-    def actualizarStock(self, vendido): #actualiza stock por cantidad vendida, no devuelve nada
+    def actualizarStock(self, vendido:float) -> None: #actualiza stock por cantidad vendida, no devuelve nada
         self.setStock(self.getStock() - vendido)
         return None
+    
+    """Getters y setters"""
     
     def getNombre(self):
         return self._nombre

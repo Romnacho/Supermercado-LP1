@@ -7,7 +7,7 @@ class Galletita(Prod_x_unidad):
         self.__peso_neto = pesoNeto
         self.__tieneTACC = tieneTACC
 
-    def __str__(self):
+    def __str__(self) -> str:
         texto_producto = f"""Producto: {self.getNombre()} - Marca: {self.getMarca()}
         Sabor: {self.__sabor} - TACC: {'Si' if self.__tieneTACC else 'No'}
         Unidades por paquete: {self.getUnid_X_Paquete()} - Peso: {self.__peso_neto}

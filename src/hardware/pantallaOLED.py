@@ -1,3 +1,5 @@
+"""imprime el total"""
+
 class PantallaOLED:
     def __init__ (self):
         self.__mensaje_actual = ""
