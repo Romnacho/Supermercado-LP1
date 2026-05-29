@@ -141,4 +141,6 @@ cliente = Cliente(idCliente=1, nombre="Carlitos", carrito=carrito)
 # PROVEEDOR
 proveedor = Proveedor(nombreEmpresa="Proveedor 1", cuit=123456789, mail="pedidos@gmail.com", marcasQueProvee=["Todas"])
 
+"""se ejecuta el menu principal, se le pasan las instancias necesarias para que acceda"""
+
 menu_principal(almacen, carrito, cliente, proveedor, inventario, lector)

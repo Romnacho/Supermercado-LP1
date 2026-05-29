@@ -9,7 +9,9 @@ class Carrito:
         self.__pantalla = pantalla
         self.__totalAcumulado = 0.0
 
-    """Escanea un producto, lo agrega al carrito y va sumando el precio final"""
+    """Escanea un producto, lo agrega al carrito y va sumando el precio final
+    El for con el if es por si el usuario quiere volver a escanear el mismo producto
+    en vez de agregarlo como nuevo producto actualiza el precio y la cantidad del producto que ya esta en el carrito"""
 
     def escanearYAgregar(self, producto: Producto, precio: float, cantidad: float) -> None:
         for (producto_aux, precio_aux, cantidad_aux) in self.__listaProductos:

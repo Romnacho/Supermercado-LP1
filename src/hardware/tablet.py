@@ -1,4 +1,4 @@
-"""Imprime cosas"""
+"""Imprime la info del producto y las promos"""
 class Tablet:
     def __init__(self, idTablet : int):
         self.__idTablet = idTablet

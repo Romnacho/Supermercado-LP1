@@ -1,4 +1,4 @@
-"""devuelve el codigo de barras escaneado"""
+""" clase con un metodo q devuelve el codigo de barras escaneado"""
 
 class LectorDeCodigoDeBarras :
     def __init__(self, idLector):
