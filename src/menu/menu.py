@@ -130,7 +130,7 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
                 return
             cantidad = float(cantidad)
             print(f"\n Kilos de {producto.getNombre()} agregados al carrito")
-            print(f"\n Kilos disponibles en góndola: {producto.getStock()} kg")
+            print(f"\n Kilos disponibles en góndola: {producto.getStock() - cantidad} kg")
         else:
             cantidad = input(f"¿Cuántos paquetes de {producto.getNombre()}?")
             if not cantidad.isdigit() or int(cantidad) <= 0:
@@ -138,7 +138,7 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
                 return
             cantidad = int(cantidad)
             print(f"\n Paquetes de {producto.getNombre()} agregados al carrito")
-            print(f"\n Stock disponible en góndola: {producto.getStock()} unidades")
+            print(f"\n Stock disponible en góndola: {producto.getStock() - cantidad} unidades")
             
         cantidad = float(cantidad)
         pedido = almacen.procesarEscaneo(producto.getCodigoBarras(), carrito, cantidad)
