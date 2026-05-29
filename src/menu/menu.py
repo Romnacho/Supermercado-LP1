@@ -8,6 +8,10 @@ from src.gondola.gondola import Gondola
 from src.hardware.lectordecodigo import LectorDeCodigoDeBarras
 from src.menu.simulacion import simulacionDeCompra
 
+"""Menu principal, se accede a distintas funcionalidades del sistema
+Llevan a distintos submenús, una simulacion de un cliente y para salir del codigo
+Todos tienen para salir en 11 por comodidad del usuario"""
+
 def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, proveedor : Proveedor, inventario : Inventario, lector : LectorDeCodigoDeBarras):
     limpiar()
     while True:
@@ -18,6 +22,8 @@ def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, prov
         print("4. Simular cliente")
         print("11. Salir")
         opcion = input("\nElegí una opción: ")
+
+        """switch case del menu principal"""
 
         if opcion == "1":
             menu_gondolas(almacen, carrito, proveedor, inventario)
@@ -42,6 +48,8 @@ def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, prov
             print("\nOpción inválida, intentá de nuevo")
             continuar()
 
+"""Submenu de la gondola, imprime todas las gondolas al cliente, permitirle entrar e interactuar con cada una para revisar los productos"""
+
 def menu_gondolas(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario):
     limpiar()
     while True:
@@ -60,6 +68,8 @@ def menu_gondolas(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, i
             menu_gondola_individual(almacen, carrito, proveedor, inventario, gondolas[int(opcion)-1])
         else:
             print("\nOpción inválida, intentá de nuevo")
+
+"""Submenu de cada gondola, permite revisar los productos, añadirlos al carrito y volver al menu de gondolas"""
 
 def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario, gondola : Gondola):
     limpiar()
@@ -86,6 +96,8 @@ def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Pr
         else:
             print("\nOpción inválida, intentá de nuevo")
 
+"""Muestra los productos"""
+
 def mostrar_productos(gondola : Gondola):
     limpiar()
     print(f"\n=== PRODUCTOS EN {gondola.getTipo().upper()} ===")
@@ -94,15 +106,22 @@ def mostrar_productos(gondola : Gondola):
         print(f"\n{i+1}. {producto}")
         print("-" * 40)
 
+"""Muestra los productos y permite añadirlos al carrito"""
+
 def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, inventario : Inventario, gondola : Gondola):
     mostrar_productos(gondola)
     productos = gondola.getProductos()
     opcion = input("\nElegí un producto (o 0 para volver): ")
 
+    """Si es 0 se vuelve, sino pones la cantidad de unidades /kilos que queres comprar y se suman al carrito"""
+
     if opcion == "0":
         return
     elif opcion.isdigit() and 1 <= int(opcion) <= len(productos):
         producto = productos[int(opcion)-1]
+
+        """Aca se añaden al carrito, depende si son por unidad o por peso el metodo puede variar un poco pero la logicsa es la misma
+        se chequea la cantidad, se valida, se procesa el escaneo, se añade al carrito, se fija si tengo que llamar al proveedor y si lo llamo se repone en la gondola"""
         
         if producto.getTipoProducto() == "Peso":
             cantidad = input(f"¿Cuántos kilos de {producto.getNombre()}? ")
@@ -135,6 +154,8 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
             almacen.reponerProducto(pedido.getCodigoBarras())
         continuar()
 
+"""Menu carrito, muestra los productos que hay, permite eliminar los productos y volver al menu principal, si esta vacio no te muestra nada"""
+
 def menu_carrito(carrito : Carrito, inventario : Inventario):
     limpiar()
     while True:
@@ -150,6 +171,9 @@ def menu_carrito(carrito : Carrito, inventario : Inventario):
         print(f"\nTotal: ${carrito.getTotalAcumulado()}")
         print("\n1. Eliminar producto")
         print("11. Volver")
+
+        """Si el usuario elige eliminar un producto se le pregunta cual quiere borrar, introduce el indice del producto que aparece a su izquierda y se borra
+        Despues se devuelve el stock a la gondola o al deposito, si se llena la gondola y aun sobra stock se manda al deposito"""
 
         opcion = input("\nElegí una opción: ")
         if opcion == "1":
@@ -170,6 +194,8 @@ def menu_carrito(carrito : Carrito, inventario : Inventario):
             break
         else:
             print("\nOpción inválida")
+
+"""Limpian la terminal para dejarla pipi cucu"""
 
 def limpiar():
     os.system('cls' if os.name == 'nt' else 'clear')
