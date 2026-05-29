@@ -104,7 +104,10 @@ def agregar_producto(almacen : Almacen, carrito : Carrito, proveedor : Proveedor
     elif opcion.isdigit() and 1 <= int(opcion) <= len(productos):
         producto = productos[int(opcion)-1]
         
-        cantidad = input(f"¿Cuántas unidades de {producto.getNombre()}? ")
+        if producto.getTipoProducto() == "Peso":
+            cantidad = input(f"¿Cuántos kilos de {producto.getNombre()}? ")
+        if producto.getTipoProducto() == "Paquete":
+            cantidad = input(f"¿Cuántos paquetes de {producto.getNombre()}?")
         if not cantidad.isdigit() or int(cantidad) <= 0:
             print("\nCantidad inválida")
             return
