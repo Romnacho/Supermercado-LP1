@@ -16,7 +16,7 @@ def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, prov
         print("2. Ver carrito")
         print("3. Pagar")
         print("4. Simular cliente")
-        print("5. Salir")
+        print("11. Salir")
         opcion = input("\nElegí una opción: ")
 
         if opcion == "1":
@@ -35,7 +35,7 @@ def menu_principal(almacen : Almacen, carrito : Carrito, cliente : Cliente, prov
             simulacionDeCompra(lector, almacen, carrito, proveedor, inventario, cliente)
             carrito.vaciarCarrito()
             continuar()
-        elif opcion == "5":
+        elif opcion == "11":
             print("\nHasta luego!")
             break
         else:
@@ -50,10 +50,10 @@ def menu_gondolas(almacen : Almacen, carrito : Carrito, proveedor : Proveedor, i
         for i, gondola in enumerate(gondolas):
             promo = f"- PROMO ACTIVA: {gondola.getPromoDescripcion()}" if gondola.getPromo() != 0 else ""
             print(f"{i+1}. {gondola.getTipo()} {promo}")
-        print(f"{len(gondolas)+1}. Volver")
+        print("11. Volver")
 
         opcion = input("\nElegí una góndola: ")
-        if opcion == str(len(gondolas)+1):
+        if opcion == "11":
             limpiar()
             break
         elif opcion.isdigit() and 1 <= int(opcion) <= len(gondolas):
@@ -69,7 +69,7 @@ def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Pr
             print(f"PROMO: {gondola.getPromoDescripcion()}")
         print("\n1. Ver productos")
         print("2. Agregar producto al carrito")
-        print("3. Volver")
+        print("11. Volver")
 
         opcion = input("\nElegí una opción: ")
 
@@ -80,7 +80,7 @@ def menu_gondola_individual(almacen : Almacen, carrito : Carrito, proveedor : Pr
         elif opcion == "2":
             agregar_producto(almacen, carrito, proveedor, inventario, gondola)
             limpiar()
-        elif opcion == "3":
+        elif opcion == "11":
             limpiar()
             break
         else:
@@ -149,7 +149,7 @@ def menu_carrito(carrito : Carrito, inventario : Inventario):
             print(f"{i+1}. {producto.getNombre()} x {cantidad} - ${precio}")
         print(f"\nTotal: ${carrito.getTotalAcumulado()}")
         print("\n1. Eliminar producto")
-        print("2. Volver")
+        print("11. Volver")
 
         opcion = input("\nElegí una opción: ")
         if opcion == "1":
@@ -165,7 +165,7 @@ def menu_carrito(carrito : Carrito, inventario : Inventario):
                 continuar()
             else:
                 print("\nOpción inválida")
-        elif opcion == "2":
+        elif opcion == "11":
             limpiar()
             break
         else:
